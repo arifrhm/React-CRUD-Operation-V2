@@ -16,15 +16,21 @@ export default function Update() {
         setLastName(localStorage.getItem('Last Name'));
         setCheckbox(localStorage.getItem('Checkbox Value'));
     }, []);
-
-    const updateAPIData = () => {
-        axios.put(`https://60fbca4591156a0017b4c8a7.mockapi.io/fakeData/${id}`, {
-            firstName,
-            lastName,
-            checkbox
-        }).then(() => {
-            history.push('/read')
-        })
+    const handleClick = event => {
+        event.preventDefault();
+        if ((firstName.trim().length !== 0 && lastName.trim().length !== 0)) {
+            axios.put(`https://60fbca4591156a0017b4c8a7.mockapi.io/fakeData/${id}`, {
+                firstName,
+                lastName,
+                checkbox
+            }).then(() => {
+                history.push('/read')
+            })
+        }else{
+            console.log('input value is empty');
+                // showAlert();
+                alert("Data First Name dan Last Name tidak boleh empty");
+            }
     }
     return (
         <div>
@@ -40,7 +46,7 @@ export default function Update() {
                 <Form.Field>
                     <Checkbox label='I agree to the Terms and Conditions' checked={checkbox} onChange={() => setCheckbox(!checkbox)}/>
                 </Form.Field>
-                <Button type='submit' onClick={updateAPIData}>Update</Button>
+                <Button type='submit' onClick={handleClick}>Update</Button>
             </Form>
         </div>
     )
