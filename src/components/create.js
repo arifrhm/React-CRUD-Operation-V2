@@ -31,7 +31,9 @@ export default function Create() {
                 history.push('/read')
             });
         } else {
-        console.log('input value is empty');
+            console.log('input value is empty');
+            // showAlert();
+            alert("Data First Name dan Last Name tidak boleh empty");
         }
     };
 
